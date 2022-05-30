@@ -1,0 +1,74 @@
+server:
+  port: 8010
+
+profiles.active: local
+
+spring:
+  #  datasource:
+  #    driver-class-name: oracle.jdbc.OracleDriver
+  #    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+  #    username: sudin
+  #    password: 7899
+  #
+  #    devtools:
+  #      restart:
+  #        enabled: true
+  #        poll-interval: 1000
+  #        quiet-period: 400
+
+  datasource:
+    # 설치된 H2 DB와 연결 URL
+    url: jdbc:h2:tcp://localhost/~/test
+    # 접속을 위한 드라이버
+    driver-class-name: org.h2.Driver
+    # springboot 2.4 부터는 username이 꼭 있어야합니다. 없으면 에러가 발생합니다.
+    username: sa
+
+  jpa:
+    # database-platform: org.hibernate.dialect.Oracle10gDialect
+    show-sql: true  # show-sql은 Hibernate에서 sql을 실행할 때 마다 실행한 쿼리문을 보여주도록 설정한 값
+    hibernate:
+      # 객체를 보고 자동으로 테이블 생성 여부. 생성 - create, 비생성 - none
+      # 테스트이기 때문에 create로 설정하며 실제로는 none 으로 합니다. create이면 기존의 테이블을 전부 밀어버립니다.
+      # create-drop, validate
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        use-new-id-generator-mappings: false
+        use_sql_comments: true
+    open-in-view: true
+    naming:
+      physical-strategy=org:
+        hibernate:
+          boot:
+            model:
+              naming: PhysicalNamingStrategyStandardlmpl
+
+  mvc:
+    log-request-details: true
+    throw-exception-if-no-handler-found: true
+
+  output:
+    ansi:
+      enabled: always # 콘솔 확인
+
+  # H2 설정
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+# 파라미터 확인을 위한 trace, info
+# console 창에서 SQL관련 log message를 보겠다
+logging:
+  level:
+    root: info
+    #    org.hibernate.type: info
+    org:
+      hibernate:
+        SQL: DEBUG
+      type:
+        descriptor:
+          sql:
+            BasicBinder: TRACE
+
