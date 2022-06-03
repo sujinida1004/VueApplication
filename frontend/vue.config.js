@@ -5,6 +5,7 @@ module.exports = defineConfig({
   ],
   // 개발 서버 설정
   devServer: {
+    port : 8090,
     // 프록시 설정
     proxy: {
       // 프록시 요청을 보낼 api의 시작 부분

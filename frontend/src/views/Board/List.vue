@@ -1,22 +1,46 @@
 <!-- list.vue test branch -->
 <template>
-  <v-container fluid>
-    <h1>{{ title }}</h1>
+  <v-container>
+    <v-form>
+        <v-row>
+          <v-col cols="12" sm="4" >
+            <h1>{{ title }}</h1>
+          </v-col>
+        </v-row>
 
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :items-per-page="5"
-      class="elevation-1"
-      @click:row="rowClicked"
-    />
+        <v-row>
+          <v-col cols="12" sm="4" >
+            <v-text-field v-model="searchkeyword" dense outlined label="이름 / 뒷번호4자리 / 전체 번호로 검색"
+                          :style="{marginTop:10}" />
+          </v-col>
 
-    <a
-      href="/board/write"
-      class="write_btn"
-    >
+          <v-col cols="12" sm="1" >
+            <v-btn @click="searchStart" :style="{marginTop:10}">검색</v-btn>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="12" >
+            <v-data-table
+              :headers="headers"
+              :items="items"
+              :items-per-page="viewCount"
+              :page.sync="page"
+              @page-count="pageCount = $event"
+              class="elevation-1"
+              hide-default-footer
+              @click:row="rowClicked"
+            />
+          </v-col>
+        </v-row>
+    </v-form>
+
+    <v-pagination v-model="page" :length="pageCount"></v-pagination>
+
+    <a href="/board/write" class="write_btn">
       <img src="@/assets/images/pen_icon.png" alt="icon">
     </a>
+
   </v-container>
 </template>
 
@@ -37,6 +61,10 @@ export default {
         { text: 'reg_dt', value: 'reg_dt', align: 'center' },
       ],
       items: [],
+      page: 1, // 선택 페이지
+      pageCount: 5, // <v-pagination> 에 노출될 페이지 버튼 수
+      viewCount: 2, // <v-data-table> 에 노출될 리스트 수
+      searchkeyword: "",
     };
   },
   mounted() {
@@ -61,6 +89,9 @@ export default {
       this.$router.push({
         path: `/board/detail/${row.id}`,
       });
+    },
+    searchStart() {
+
     },
   },
 }
