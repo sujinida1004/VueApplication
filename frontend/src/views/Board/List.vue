@@ -1,3 +1,4 @@
+<!-- list.vue test branch -->
 <template>
   <v-container fluid>
     <h1>{{ title }}</h1>
@@ -14,7 +15,7 @@
       href="/board/write"
       class="write_btn"
     >
-      <img src="@/assets/images/pen_icon.png">
+      <img src="@/assets/images/pen_icon.png" alt="icon">
     </a>
   </v-container>
 </template>
@@ -42,7 +43,7 @@ export default {
     apiBoard
       .getBoardList(0)
       .then((response) => {
-        if(response.status == 200) {
+        if(response.status.toString() == '200') {
           console.log("getBoardList", response);
           if(response.data != null){
             this.items = response.data;
