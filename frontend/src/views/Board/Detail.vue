@@ -1,3 +1,4 @@
+<!-- detail.vue master -->
 <template>
   <v-card ref="form">
     <v-toolbar
