@@ -30,7 +30,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row dense>
+      <v-row >
         <v-col>
           <v-card
             class="pa-3"
